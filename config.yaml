@@ -1,0 +1,204 @@
+meta:
+  engine: 4.1.0
+units:
+  outline_pad: 6
+points:
+  zones:
+    main:
+      anchor:
+        shift: [100, -200]
+      key:
+        padding: 1U
+        spread: 1U
+        width: 1u
+        height: 1u
+      rows:
+        r5:
+          row_net: P115
+        r4:
+          row_net: P113
+        r3:
+          row_net: P111
+        r2:
+          row_net: P010
+        r1:
+          row_net: P009
+      columns:
+        c1:
+          key: 
+            column_net: P106
+          rows:
+            r5:
+              width: 2u
+              adjust:
+                shift: [0.5u, 0]
+            r3:
+              width: 2u
+              adjust:
+                shift: [0.5u, 0]
+            r2:
+              width: 2u
+              adjust:
+                shift: [0.5u, 0]
+            r1:
+	
+
+                
+        c2:
+          key:
+            column_net: P104
+          rows.r5.skip: true
+          rows.r3.skip: true
+          rows.r2.skip: true
+
+        c3:
+          key:
+            column_net: P011
+          key.stagger: 4
+        c4:
+          key:
+            column_net: P100
+          key.stagger: 2
+        c5:
+          key:
+            column_net: P024
+          key.stagger: -2
+          rows.r5.skip: true
+        c6: 
+          key:
+            column_net: P022
+          key.stagger: -2
+          rows:
+            r5:
+              width: 3u
+          
+        c7:
+          key:
+            column_net: P020
+          key.stagger: 0
+          rows.r5.skip: true
+    thumb:
+      key:
+        padding: 1U
+        spread: 1U
+        width: 1u
+      anchor:
+        ref: main_c7_r5
+        shift: [-1u, -1U ]
+      columns:
+        layer:
+          key:
+            column_net: P024  
+        space:
+          key:
+            column_net: P020
+      rows:
+        cluster:
+          row_net: P009
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      bound: true
+      size: [1U+2, 1U+2]
+  keys:
+    # Standard 1u keys
+    - what: rectangle
+      where: true
+      bound: false
+      size: [1u-0.5, 1U-0.5]
+    # 2u keys (c1_r5, c1_r3, c1_r2)
+    - what: rectangle
+      where:
+        - ref: main_c1_r2
+      bound: false
+      size: [2u-0.5, 1U-0.5]
+    - what: rectangle
+      where:
+        - ref: main_c1_r5
+      bound: false
+      size: [2u-0.5, 1U-0.5]
+    - what: rectangle
+      where:
+        - ref: main_c1_r3
+      bound: false
+      size: [2u-0.5, 1U-0.5]
+
+
+
+
+        
+        
+    # 3u key (c6_r5)
+    - what: rectangle
+      where:
+        - ref: main_c6_r5
+      bound: false
+      size: [3u-0.5, 1U-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: main_c1_r1
+          shift: [-0.5U - outline_pad, 0.5U+6+outline_pad]
+        - ref: main_c1_r5
+          shift: [-1U - outline_pad, -0.5U-outline_pad]
+        - ref: main_c6_r5
+          shift: [-0.5U-outline_pad,-0.5U-2-outline_pad]
+        - ref: thumb_layer_cluster
+          shift: [-0.5U-outline_pad,-0.5U-outline_pad]
+        - ref: thumb_space_cluster
+          shift: [0.5U+outline_pad,-0.5U-outline_pad]
+        - ref: main_c7_r1
+          shift: [0.5U+outline_pad,0.5U+4+outline_pad]
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+
+pcbs:
+  Bifrost_left:
+    outlines:
+      main_layout:
+        outline: board
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      nicenano:
+        what: nice_nano
+        params:
+          orientation: "up"
+        where:
+          ref: main_c7_r1
+          shift: [-3, 6.5]
+          rotate: 180
+      jstph:
+        what: jstph
+        where:
+          ref: main_c5_r1
+          shift: [8, 10.0]
+          rotate: 90
+        params:
+            side: B
+            pos: pos
+            neg: GND
+        
+
+cases:
