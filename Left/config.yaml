@@ -1,15 +1,15 @@
 meta:
   engine: 4.1.0
 units:
-  outline_pad: 6
+  outline_pad: 8
 points:
   zones:
     main:
       anchor:
         shift: [100, -200]
       key:
-        padding: 1U
-        spread: 1U
+        padding: 1U + 0.75
+        spread: 1U + 0.75
         width: 1u
         height: 1u
       rows:
@@ -79,12 +79,13 @@ points:
           rows.r5.skip: true
     thumb:
       key:
-        padding: 1U
-        spread: 1U
+        padding: 1U + 0.75
+        spread: 1U + 0.75
         width: 1u
+        height: 1u
       anchor:
         ref: main_c7_r5
-        shift: [-1u, -1U ]
+        shift: [-1U - 0.75, -1U-0.75 ]
       columns:
         layer:
           key:
@@ -173,6 +174,7 @@ pcbs:
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
+          
       diode:
         what: diode
         where: true
@@ -180,25 +182,81 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          shift: [0, -5]
+          shift: [0, -10]
+
       nicenano:
         what: nice_nano
         params:
           orientation: "up"
         where:
           ref: main_c7_r1
-          shift: [-3, 6.5]
+          shift: [-3, 3.5]
           rotate: 180
+
       jstph:
         what: jstph
         where:
-          ref: main_c5_r1
-          shift: [8, 10.0]
-          rotate: 90
+          ref: main_c6_r1
+          shift: [-3, 15.0]
+          rotate: 270
         params:
             side: B
             pos: pos
             neg: GND
-        
 
+      power_switch:
+        what: switch_tht
+        where:
+          ref: main_c7_r2
+          shift: [13, 0]
+          rotate: 90
+        params:
+          from: pos
+          to: RAW
+
+      reset_switch:
+        what: switch_tht
+        where:
+          ref: main_c7_r3
+          shift: [13,  0]
+          rotate: 90
+        params:
+          from: GND
+          to: RST
+
+      hole_top_left:
+        what: mountinghole
+        where:
+          ref: main_c1_r1
+          shift: [-13, 18]
+
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: main_c7_r1
+          shift: [13, 16]
+
+      hole_bottom_left:
+        what: mountinghole
+        where:
+          ref: main_c1_r4
+          shift: [-13, -12.75-1U]
+
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: main_c6_r5
+          shift: [14+1U, -14]
+
+      hole_center_center:
+        what: mountinghole
+        where:
+          ref: main_c4_r3
+          shift: [9.8, 0.5U-1]
+
+      hole_button_center:
+        what: mountinghole
+        where:
+          ref: main_c4_r5
+          shift: [1U+4, -18]
 cases:
