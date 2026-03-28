@@ -26,7 +26,7 @@ points:
       columns:
         c1:
           key: 
-            column_net: P106
+            column_net: P024
           rows:
             r5:
               width: 2u
@@ -46,7 +46,7 @@ points:
                 
         c2:
           key:
-            column_net: P104
+            column_net: P100
           rows.r5.skip: true
           rows.r3.skip: true
           rows.r2.skip: true
@@ -57,11 +57,11 @@ points:
           key.stagger: 4
         c4:
           key:
-            column_net: P100
+            column_net: P104
           key.stagger: 2
         c5:
           key:
-            column_net: P024
+            column_net: P106
           key.stagger: -2
           rows.r5.skip: true
         c6: 
@@ -89,13 +89,13 @@ points:
       columns:
         layer:
           key:
-            column_net: P024  
+            column_net: P022  
         space:
           key:
             column_net: P020
       rows:
         cluster:
-          row_net: P009
+          row_net: P002
 
 outlines:
   raw:
@@ -196,8 +196,8 @@ pcbs:
       jstph:
         what: jstph
         where:
-          ref: main_c6_r1
-          shift: [-3, 15.0]
+          ref: main_c5_r1
+          shift: [-3, 13.0]
           rotate: 270
         params:
             side: B
@@ -207,8 +207,8 @@ pcbs:
       power_switch:
         what: switch_tht
         where:
-          ref: main_c7_r2
-          shift: [13, 0]
+          ref: main_c6_r1
+          shift: [-14, 17]
           rotate: 90
         params:
           from: pos
@@ -217,8 +217,8 @@ pcbs:
       reset_switch:
         what: switch_tht
         where:
-          ref: main_c7_r3
-          shift: [13,  0]
+          ref: main_c6_r1
+          shift: [-10,  15]
           rotate: 90
         params:
           from: GND

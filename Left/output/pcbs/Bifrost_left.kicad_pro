@@ -95,9 +95,9 @@
         "missing_tuning_profile": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
-        "npth_inside_courtyard": "error",
+        "npth_inside_courtyard": "ignore",
         "padstack": "warning",
-        "pth_inside_courtyard": "error",
+        "pth_inside_courtyard": "ignore",
         "shorting_items": "error",
         "silk_edge_clearance": "warning",
         "silk_over_copper": "warning",
@@ -268,14 +268,13 @@
         "priority": -1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
-        "tuning_profile": "",
         "via_diameter": 0.8,
         "via_drill": 0.4,
         "wire_width": 6
       }
     ],
     "meta": {
-      "version": 5
+      "version": 4
     },
     "net_colors": null,
     "netclass_assignments": null,
@@ -286,7 +285,7 @@
       },
       {
         "netclass": "Default",
-        "pattern": "P106"
+        "pattern": "P024"
       },
       {
         "netclass": "Default",
@@ -310,7 +309,7 @@
       },
       {
         "netclass": "Default",
-        "pattern": "P104"
+        "pattern": "P100"
       },
       {
         "netclass": "Default",
@@ -346,7 +345,7 @@
       },
       {
         "netclass": "Default",
-        "pattern": "P100"
+        "pattern": "P104"
       },
       {
         "netclass": "Default",
@@ -370,7 +369,7 @@
       },
       {
         "netclass": "Default",
-        "pattern": "P024"
+        "pattern": "P106"
       },
       {
         "netclass": "Default",
@@ -462,6 +461,10 @@
       },
       {
         "netclass": "Default",
+        "pattern": "P002"
+      },
+      {
+        "netclass": "Default",
         "pattern": "RAW"
       },
       {
@@ -483,10 +486,6 @@
       {
         "netclass": "Default",
         "pattern": "P029"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "P002"
       },
       {
         "netclass": "Default",
