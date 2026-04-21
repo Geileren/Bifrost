@@ -1,0 +1,218 @@
+meta:
+  engine: 4.1.0
+units:
+  outline_pad: 8
+points:
+  zones:
+    main:
+      anchor:
+        shift: [100, -200]
+      key:
+        padding: 1U + 0.75
+        spread: 1U + 0.75
+        width: 1u
+        height: 1u
+      rows:
+        r5:
+          row_net: P017
+        r4:
+          row_net: P020
+        r3:
+          row_net: P022
+        r2:
+          row_net: P024
+        r1:
+          row_net: P100
+      columns:
+        c1:
+          key: 
+            column_net: P031
+          rows.r5.skip: true
+          
+
+	                
+        c2:
+          key:
+            column_net: P029
+          rows:            
+            r5:
+              width: 3u
+              adjust:
+                shift: [0, 0]
+
+        c3:
+          key:
+            column_net: P002
+          key.stagger: 2
+          rows.r5.skip: true
+        c4:
+          key:
+            column_net: P115
+          key.stagger: 2
+        c5:
+          key:
+            column_net: P113
+          key.stagger: -2
+        c6: 
+          key:
+            column_net: P009
+          key.stagger: -4
+
+        c7:
+          key:
+            column_net: P010
+          key.stagger: 0
+          rows.r1.skip: true
+
+        c8:
+          key:
+            column_net: P111
+          key.stagger: 0
+          rows:
+            r3.skip: true
+            r1:
+              width: 2u
+              adjust:
+                shift: [-0.5U,0]
+            r2:
+              height: 2u
+              adjust:
+                shift: [0, -0.5U]
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      bound: true
+      size: [1U+2, 1U+2]
+  keys:
+    # Standard 1u keys
+    - what: rectangle
+      where: true
+      bound: false
+      size: [1u-0.5, 1U-0.5]
+    # 2u keys (c1_r5, c1_r3, c1_r2)
+    - what: rectangle
+      where:
+        - ref: main_c8_r1
+      bound: false
+      size: [2u-0.5, 1U-0.5]
+    # 3u key (c6_r5)
+    - what: rectangle
+      where:
+        - ref: main_c2_r5
+      bound: false
+      size: [3u-0.5, 1U-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: main_c1_r1
+          shift: [-0.5U - outline_pad, 0.5U+4+outline_pad]
+        - ref: main_c1_r4
+          shift: [-0.5U - outline_pad, -1.5U-2-outline_pad]
+        - ref: main_c8_r5
+          shift: [0.5U+outline_pad,-0.5U-0-outline_pad]
+        - ref: main_c8_r1
+          shift: [1U+outline_pad,0.5U+6+outline_pad]
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+
+pcbs:
+  Bifrost_right:
+    outlines:
+      main_layout:
+        outline: board
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+          
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -10]
+
+      nicenano:
+        what: nice_nano
+        params:
+          orientation: "up"
+        where:
+          ref: main_c1_r1
+          shift: [-0.0, 3.5]
+          rotate: 0
+
+      jstph:
+        what: jstph
+        where:
+          ref: main_c3_r1
+          shift: [3, 13.0]
+          rotate: 90
+        params:
+            side: B
+            pos: pos
+            neg: GND
+
+      power_switch:
+        what: switch_tht
+        where:
+          ref: main_c2_r1
+          shift: [14, 17]
+          rotate: 90
+        params:
+          from: pos
+          to: RAW
+
+      reset_switch:
+        what: switch_tht
+        where:
+          ref: main_c2_r1
+          shift: [10,  17]
+          rotate: 270
+        params:
+          from: GND
+          to: RST
+
+      hole_top_left:
+        what: mountinghole
+        where:
+          ref: main_c1_r1
+          shift: [-13, 16]
+
+      hole_top_right:
+        what: mountinghole
+        where:
+          ref: main_c8_r1
+          shift: [13+0.5U, 18]
+
+      hole_bottom_left:
+        what: mountinghole
+        where:
+          ref: main_c1_r4
+          shift: [-13, -1U-13.5]
+
+      hole_bottom_right:
+        what: mountinghole
+        where:
+          ref: main_c8_r5
+          shift: [13, -11]
+
+      hole_center_center:
+        what: mountinghole
+        where:
+          ref: main_c4_r3
+          shift: [9.5, 0.5U]
+cases:
